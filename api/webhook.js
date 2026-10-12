@@ -101,7 +101,7 @@ export default async function handler(req, res) {
           inline_keyboard: [
             [
               {
-                text: "🚀 Open EpayOne App",
+                text: "🚀 Start Earning",
                 web_app: { url: targetWebAppUrl },
                 style: "success" // Green color
               }
@@ -113,7 +113,7 @@ export default async function handler(req, res) {
                 style: "primary" // Blue color
               },
               {
-                text: "💬 Support",
+                text: "💬 Support Team",
                 url: "https://t.me/GlobalSupportHQ",
                 style: "danger" // Red color
               }
