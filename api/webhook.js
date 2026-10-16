@@ -84,10 +84,10 @@ export default async function handler(req, res) {
         };
 
         const welcomeText = 
-          `Hello <b>${userBFirstName}</b>!\n\n` +
+          `👋 Hello <b>${userBFirstName}</b>!\n\n` +
           `<blockquote>Welcome to <b>EpayOne Earning Platform</b>\n\n` +
           `Earn daily income by watching video ads, completing Telegram tasks, and inviting friends.</blockquote>\n\n` +
-          `Tap the button below to start earning:`;
+          `👇 Tap the button below to start eearnin:`;
 
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: 'POST',
