@@ -64,7 +64,7 @@ export default async function handler(req, res) {
           console.error("Failed to set Chat Menu Button:", menuErr);
         }
 
-        // Inline keyboard
+        // Inline keyboard with style properties added back
         const inlineKeyboard = {
           inline_keyboard: [
             [
@@ -113,4 +113,4 @@ export default async function handler(req, res) {
   }
 
   return res.status(200).json({ ok: true });
-}Support
+}
