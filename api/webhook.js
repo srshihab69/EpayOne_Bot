@@ -1,10 +1,8 @@
 export default async function handler(req, res) {
-  // Only accept POST requests
   if (req.method !== 'POST') {
     return res.status(200).send('EpayOne Bot Webhook & Referral Engine is Running!');
   }
-
-  // Retrieve Bot Token from Vercel Environment Variables
+  
   const BOT_TOKEN = process.env.BOT_TOKEN;
   if (!BOT_TOKEN) {
     console.error('Server Error: BOT_TOKEN is missing in environment variables.');
@@ -14,7 +12,6 @@ export default async function handler(req, res) {
   const MINI_APP_BASE_URL = "https://epayone.netlify.app"; 
   const body = req.body || {};
 
-  // Escape HTML special characters
   const escapeHtml = (str) =>
     String(str || "")
       .replace(/&/g, '&amp;')
@@ -22,7 +19,7 @@ export default async function handler(req, res) {
       .replace(/>/g, '&gt;');
 
   try {
-    // TELEGRAM WEBHOOK (/start command & referral handler)
+    
     if (body.message && body.message.text) {
       const userBChatId = body.message.chat.id;
       const text = body.message.text.trim();
@@ -40,13 +37,11 @@ export default async function handler(req, res) {
 
         let targetWebAppUrl = MINI_APP_BASE_URL;
 
-        // Process referral parameter if exists (Works for both Menu Button and Inline WebApp Button)
         if (startPayload) {
           const separator = targetWebAppUrl.includes('?') ? '&' : '?';
           targetWebAppUrl += `${separator}start=${encodeURIComponent(startPayload)}&tgWebAppStartParam=${encodeURIComponent(startPayload)}`;
         }
-
-        // Set Chat Menu Button with referral URL (Referral active)
+        
         try {
           await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/setChatMenuButton`, {
             method: 'POST',
@@ -63,8 +58,7 @@ export default async function handler(req, res) {
         } catch (menuErr) {
           console.error("Failed to set Chat Menu Button:", menuErr);
         }
-
-        // Inline keyboard with style properties and referral URL (Referral active)
+        
         const inlineKeyboard = {
           inline_keyboard: [
             [
@@ -89,7 +83,6 @@ export default async function handler(req, res) {
           ]
         };
 
-        // Welcome message with blockquote added
         const welcomeText = 
           `Hello <b>${userBFirstName}</b>!\n\n` +
           `<blockquote>Welcome to <b>EpayOne Earning Platform</b>\n\n` +
