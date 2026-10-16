@@ -40,13 +40,13 @@ export default async function handler(req, res) {
 
         let targetWebAppUrl = MINI_APP_BASE_URL;
 
-        // Process referral parameter if exists
+        // Process referral parameter if exists (Works for both Menu Button and Inline WebApp Button)
         if (startPayload) {
           const separator = targetWebAppUrl.includes('?') ? '&' : '?';
           targetWebAppUrl += `${separator}start=${encodeURIComponent(startPayload)}&tgWebAppStartParam=${encodeURIComponent(startPayload)}`;
         }
 
-        // Set Chat Menu Button with referral URL (Works for bot menu button too)
+        // Set Chat Menu Button with referral URL (Referral active)
         try {
           await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/setChatMenuButton`, {
             method: 'POST',
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
           console.error("Failed to set Chat Menu Button:", menuErr);
         }
 
-        // Inline keyboard with style properties added back
+        // Inline keyboard with style properties and referral URL (Referral active)
         const inlineKeyboard = {
           inline_keyboard: [
             [
@@ -89,11 +89,11 @@ export default async function handler(req, res) {
           ]
         };
 
-        // Welcome message for User
+        // Welcome message with blockquote added
         const welcomeText = 
           `Hello <b>${userBFirstName}</b>!\n\n` +
-          `Welcome to <b>EpayOne Earning Platform</b>\n\n` +
-          `Earn daily income by watching video ads, completing Telegram tasks, and inviting friends.\n\n` +
+          `<blockquote>Welcome to <b>EpayOne Earning Platform</b>\n\n` +
+          `Earn daily income by watching video ads, completing Telegram tasks, and inviting friends.</blockquote>\n\n` +
           `Tap the button below to start earning:`;
 
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
