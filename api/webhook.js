@@ -87,7 +87,7 @@ export default async function handler(req, res) {
           `👋 Hello <b>${userBFirstName}</b>!\n\n` +
           `<blockquote>Welcome to <b>EpayOne Earning Platform</b>\n\n` +
           `Earn daily income by watching video ads, completing Telegram tasks, and inviting friends.</blockquote>\n\n` +
-          `👇 Tap the button below to start eearnin:`;
+          `👇 Tap the button below to start earning:`;
 
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: 'POST',
